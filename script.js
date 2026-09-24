@@ -28,88 +28,157 @@ const cafeCards = document.querySelectorAll(".cafe-card");
 
 function filterCafes() {
 
-    // Lấy giá trị bộ lọc
+    const keyword = searchInput.value.toLowerCase().trim();
 
-    const keyword =
-        searchInput.value.toLowerCase().trim();
+    let selectedNeed = needFilter.value;
+    let selectedLocation = locationFilter.value;
+    let selectedPrice = priceFilter.value;
 
-    const selectedNeed =
-        needFilter.value;
+    // =========================
+    // PHÂN TÍCH CÂU TÌM KIẾM
+    // =========================
 
-    const selectedLocation =
-        locationFilter.value;
+    if (keyword !== "") {
 
-    const selectedPrice =
-        priceFilter.value;
+        // ----- NHU CẦU -----
 
+        if (
+            keyword.includes("học bài") ||
+            keyword.includes("học tập") ||
+            keyword.includes("học")
+        ) {
+            selectedNeed = "study";
+        }
+
+        else if (
+            keyword.includes("làm việc") ||
+            keyword.includes("work")
+        ) {
+            selectedNeed = "work";
+        }
+
+        else if (
+            keyword.includes("hẹn hò") ||
+            keyword.includes("hẹn hò")
+        ) {
+            selectedNeed = "date";
+        }
+
+        else if (
+            keyword.includes("view đẹp") ||
+            keyword.includes("view") ||
+            keyword.includes("sống ảo")
+        ) {
+            selectedNeed = "view";
+        }
+
+        else if (
+            keyword.includes("24h") ||
+            keyword.includes("mở khuya") ||
+            keyword.includes("khuya")
+        ) {
+            selectedNeed = "late";
+        }
+
+
+        // ----- KHU VỰC -----
+
+        if (keyword.includes("cầu giấy")) {
+            selectedLocation = "cau-giay";
+        }
+
+        else if (
+            keyword.includes("hồ tây") ||
+            keyword.includes("tây hồ")
+        ) {
+            selectedLocation = "tay-ho";
+        }
+
+        else if (keyword.includes("hoàn kiếm")) {
+            selectedLocation = "hoan-kiem";
+        }
+
+        else if (keyword.includes("ba đình")) {
+            selectedLocation = "ba-dinh";
+        }
+
+
+        // ----- GIÁ -----
+
+        if (
+            keyword.includes("dưới 50k") ||
+            keyword.includes("dưới 50 k") ||
+            keyword.includes("dưới 50")
+        ) {
+            selectedPrice = "under-50";
+        }
+
+        else if (
+            keyword.includes("50k-100k") ||
+            keyword.includes("50k đến 100k") ||
+            keyword.includes("50k 100k")
+        ) {
+            selectedPrice = "50-100";
+        }
+
+        else if (
+            keyword.includes("trên 100k") ||
+            keyword.includes("trên 100")
+        ) {
+            selectedPrice = "over-100";
+        }
+    }
+
+
+    // =========================
+    // LỌC QUÁN
+    // =========================
 
     let count = 0;
-
-
-    // Duyệt qua từng quán
 
     cafeCards.forEach(function(card) {
 
         const name =
-            card.getAttribute("data-name")
-                ?.toLowerCase() || "";
+            card.getAttribute("data-name")?.toLowerCase() || "";
 
         const location =
-            card.getAttribute("data-location")
-                || "";
+            card.getAttribute("data-location") || "";
 
         const needs =
-            card.getAttribute("data-needs")
-                || "";
+            card.getAttribute("data-needs") || "";
 
         const price =
-            card.getAttribute("data-price")
-                || "";
-
-        const content =
-            card.textContent.toLowerCase();
+            card.getAttribute("data-price") || "";
 
 
-        // =========================
-        // KIỂM TRA TỪ KHÓA
-        // =========================
+        // Nếu có câu tìm kiếm nhưng không nhận diện
+        // được điều kiện nào thì tìm theo tên quán
+        const hasNaturalFilter =
+            selectedNeed !== needFilter.value ||
+            selectedLocation !== locationFilter.value ||
+            selectedPrice !== priceFilter.value;
+
 
         const matchKeyword =
             keyword === "" ||
-            name.includes(keyword) ||
-            content.includes(keyword);
+            hasNaturalFilter ||
+            name.includes(keyword);
 
-
-        // =========================
-        // KIỂM TRA NHU CẦU
-        // =========================
 
         const matchNeed =
             selectedNeed === "all" ||
             needs.includes(selectedNeed);
 
 
-        // =========================
-        // KIỂM TRA KHU VỰC
-        // =========================
-
         const matchLocation =
             selectedLocation === "all" ||
             location === selectedLocation;
 
 
-        // =========================
-        // KIỂM TRA GIÁ
-        // =========================
-
         const matchPrice =
             selectedPrice === "all" ||
             price === selectedPrice;
 
-
-        // =========================
-        // HIỂN THỊ / ẨN
-        // =========================
 
         if (
             matchKeyword &&
@@ -118,8 +187,7 @@ function filterCafes() {
             matchPrice
         ) {
 
-            card.style.display = "";
-
+            card.style.display = "block";
             count++;
 
         } else {
@@ -131,20 +199,67 @@ function filterCafes() {
     });
 
 
-    // Cập nhật số lượng kết quả
-
     resultCount.textContent = count;
+    // =========================
+// HIỂN THỊ YÊU CẦU GEO
+// =========================
 
+const understanding = document.getElementById("search-understanding");
+const intentNeed = document.getElementById("intent-need");
+const intentLocation = document.getElementById("intent-location");
+const intentPrice = document.getElementById("intent-price");
+const intentDescription = document.getElementById("intent-description");
 
-    // Nếu không tìm thấy
+if (
+    keyword !== "" &&
+    (
+        selectedNeed !== "all" ||
+        selectedLocation !== "all" ||
+        selectedPrice !== "all"
+    )
+) {
 
-    if (count === 0) {
+    understanding.style.display = "block";
 
-        resultCount.textContent = "0";
-    }
+    const needText = {
+        study: "📚 Học bài",
+        work: "💻 Làm việc",
+        date: "❤️ Hẹn hò",
+        view: "📸 View đẹp",
+        late: "🌙 Mở khuya"
+    };
+
+    const locationText = {
+        "cau-giay": "📍 Cầu Giấy",
+        "tay-ho": "📍 Tây Hồ",
+        "hoan-kiem": "📍 Hoàn Kiếm",
+        "ba-dinh": "📍 Ba Đình"
+    };
+
+    const priceText = {
+        "under-50": "💰 Dưới 50K",
+        "50-100": "💰 50K–100K",
+        "over-100": "💰 Trên 100K"
+    };
+
+    intentNeed.textContent =
+        needText[selectedNeed] || "";
+
+    intentLocation.textContent =
+        locationText[selectedLocation] || "";
+
+    intentPrice.textContent =
+        priceText[selectedPrice] || "";
+
+    intentDescription.textContent =
+        `Website đã phân tích yêu cầu và tìm thấy ${count} quán phù hợp.`;
+
+} else {
+
+    understanding.style.display = "none";
 
 }
-
+}
 
 // ==========================================
 // 3. NÚT TÌM KIẾM
