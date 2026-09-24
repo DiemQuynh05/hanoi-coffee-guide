@@ -373,6 +373,27 @@
 
     </section>
 
+    <section class="intro-section">
+    <div class="container">
+
+        <p class="section-label">
+            HANOI COFFEE GUIDE
+        </p>
+
+        <h2>
+            Cẩm nang tìm kiếm quán cà phê tại Hà Nội
+        </h2>
+
+        <p class="intro-text">
+            Hanoi Coffee Guide là cẩm nang tìm kiếm quán cà phê tại Hà Nội,
+            giúp người dùng tìm địa điểm phù hợp theo nhu cầu, khu vực,
+            mức giá, không gian và tiện ích.
+            Website cung cấp thông tin về các quán cà phê tại Cầu Giấy,
+            Hoàn Kiếm, Tây Hồ và các khu vực khác ở Hà Nội.
+        </p>
+
+    </div>
+</section>
 
     <!-- ================= NEEDS ================= -->
     <section class="section" id="needs">
@@ -502,33 +523,84 @@
             </div>
 
 
-            <div class="location-grid">
+            <div class="area-grid">
 
-                <div class="location-card">
-                    <span>🌊</span>
-                    <h3>Hồ Tây</h3>
-                    <p>View hồ, không gian thoáng</p>
-                </div>
+    <!-- HỒ TÂY -->
+    <div class="area-card"
+         data-location="tay-ho"
+         onclick="filterByLocation('tay-ho')">
 
-                <div class="location-card">
-                    <span>📚</span>
-                    <h3>Cầu Giấy</h3>
-                    <p>Nhiều quán phù hợp học tập</p>
-                </div>
+        <img
+    src="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?auto=format&fit=crop&w=900&q=80"
+    alt="Khu vực Hồ Tây Hà Nội"
+>
 
-                <div class="location-card">
-                    <span>🏛️</span>
-                    <h3>Hoàn Kiếm</h3>
-                    <p>Khu vực trung tâm Hà Nội</p>
-                </div>
+        <div class="area-overlay">
+            <span>📍</span>
+            <h3>Hồ Tây</h3>
+            <p>Cafe view đẹp, thư giãn</p>
+        </div>
 
-                <div class="location-card">
-                    <span>🌳</span>
-                    <h3>Ba Đình</h3>
-                    <p>Nhiều không gian yên tĩnh</p>
-                </div>
+    </div>
 
-            </div>
+
+    <!-- CẦU GIẤY -->
+    <div class="area-card"
+         data-location="cau-giay"
+         onclick="filterByLocation('cau-giay')">
+
+        <img
+            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80"
+            alt="Khu vực Cầu Giấy Hà Nội"
+        >
+
+        <div class="area-overlay">
+            <span>📍</span>
+            <h3>Cầu Giấy</h3>
+            <p>Cafe học bài, làm việc</p>
+        </div>
+
+    </div>
+
+
+    <!-- HOÀN KIẾM -->
+    <div class="area-card"
+         data-location="hoan-kiem"
+         onclick="filterByLocation('hoan-kiem')">
+
+        <img
+            src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=900&q=80"
+            alt="Khu phố cổ Hoàn Kiếm Hà Nội"
+        >
+
+        <div class="area-overlay">
+            <span>📍</span>
+            <h3>Hoàn Kiếm</h3>
+            <p>Cafe phố cổ, trung tâm Hà Nội</p>
+        </div>
+
+    </div>
+
+
+    <!-- BA ĐÌNH -->
+    <div class="area-card"
+         data-location="ba-dinh"
+         onclick="filterByLocation('ba-dinh')">
+
+        <img
+            src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80"
+            alt="Khu vực Ba Đình Hà Nội"
+        >
+
+        <div class="area-overlay">
+            <span>📍</span>
+            <h3>Ba Đình</h3>
+            <p>Cafe yên tĩnh, thư giãn</p>
+        </div>
+
+    </div>
+
+</div>
 
         </div>
 
